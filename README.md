@@ -1,6 +1,6 @@
 # My Carbon Footprint
 
-## Raise awareness to prevent global warming
+## Raise awareness to prevent global warming :earth_americas:
 
 We all know that we are slowly leading ourselves towards global warming, even though we don't intend to.  While we need
 big solutions for this problem, the best way to actually combat a problem is to start with the most basic approach. And
