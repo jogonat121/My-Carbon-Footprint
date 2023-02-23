@@ -1,0 +1,7 @@
+questions; unitValue; category
+How many hours do you fly in a year?; 0.09; Travel
+How many miles do you drive your car in a year?; 0.0004; Travel
+How many miles do you ride in a bus in a year?; 0.000064; Travel
+On a scale of 1-3 (1 = Vegan, Veg, No Beef, Average, Meet Lover = 3), choose the type of diet you consume; 1.1; Food
+You do NOT recycle newspaper? (Enter 0 for false, 1 for true); 0.083; Housing
+You do NOT recycle aluminum and tin? (Enter 0 for false, 1 for true); 0.075; Housing
