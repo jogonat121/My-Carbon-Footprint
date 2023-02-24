@@ -1,5 +1,8 @@
 package model;
 
+import model.exceptions.EmptyQuestionBankException;
+import model.exceptions.InvalidNumberOfAnswersException;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,10 +32,12 @@ public class QuestionBank {
         return (questionBank.size());
     }
 
-    // REQUIRES: question bank is not empty
     // MODIFIES: this
     // EFFECTS: removes the question bank at the front of the queue and returns it
-    public Question getNextQuestion() {
+    public Question getNextQuestion() throws EmptyQuestionBankException {
+        if (questionBank.isEmpty()) {
+            throw new EmptyQuestionBankException();
+        }
         return questionBank.removeFirst();
     }
 
@@ -51,21 +56,22 @@ public class QuestionBank {
     // MODIFIES: this
     // EFFECTS: calculates the footprint with the corresponding user values for each question
     //  and remove those questions
-    public Footprint calculateFootprint(List<Double> usrValues) {
+    public Footprint calculateFootprint(List<Double> usrValues)
+            throws InvalidNumberOfAnswersException, EmptyQuestionBankException {
+        if (questionBank.size() != usrValues.size()) {
+            throw new InvalidNumberOfAnswersException(usrValues.size());
+        }
+
         int valIndex = 0;
         Footprint footprint = new Footprint(category);
 
-        try {
-            while (!isEmpty()) {
-                double usrUsage = usrValues.get(valIndex);
-                Question question = getNextQuestion();
+        while (!isEmpty()) {
+            double usrUsage = usrValues.get(valIndex);
+            Question question = getNextQuestion();
 
-                double footprintValue = question.calculateFootprint(usrUsage);
-                footprint.addValue(footprintValue);
-                valIndex++;
-            }
-        } catch (NullPointerException e) {
-            System.out.println("Load questions into question bank first!");
+            double footprintValue = question.calculateFootprint(usrUsage);
+            footprint.addValue(footprintValue);
+            valIndex++;
         }
 
         return footprint;

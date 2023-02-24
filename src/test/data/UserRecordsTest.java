@@ -1,5 +1,7 @@
 package data;
 
+import data.exceptions.CannotAccessDataException;
+import data.exceptions.RecordNotFoundException;
 import model.Footprint;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,19 +20,23 @@ public class UserRecordsTest {
 
     @BeforeEach
     void runBefore() {
-        testFootprintFood = new Footprint("Food");
-        testFootprintTravel = new Footprint("Travel");
-        testFootprintMisc = new Footprint("Misc.");
-        testFootprintRecord = new FootprintRecord("testID",
-                testFootprintFood, testFootprintTravel, testFootprintMisc);
-        testFootprintFood.setValue(1);
-        testFootprintTravel.setValue(2);
-        testFootprintMisc.setValue(3);
+        try {
+            testFootprintFood = new Footprint("Food");
+            testFootprintTravel = new Footprint("Travel");
+            testFootprintMisc = new Footprint("Misc.");
+            testFootprintRecord = new FootprintRecord("testID",
+                    testFootprintFood, testFootprintTravel, testFootprintMisc);
+            testFootprintFood.setValue(1);
+            testFootprintTravel.setValue(2);
+            testFootprintMisc.setValue(3);
 
-        testFootprintRecord.saveData(PATH_TO_SAMPLE_RECORDS, false);
+            testFootprintRecord.saveData(PATH_TO_SAMPLE_RECORDS, false);
 
-        testUserRecords = new UserRecords();
-        testUserRecords.init(PATH_TO_SAMPLE_RECORDS);
+            testUserRecords = new UserRecords();
+            testUserRecords.init(PATH_TO_SAMPLE_RECORDS);
+        } catch (CannotAccessDataException e) {
+            fail();
+        }
     }
 
     @Test
@@ -45,12 +51,26 @@ public class UserRecordsTest {
     }
 
     @Test
-    void removeRecord() {
-        assertFalse(testUserRecords.removeRecord("unknown"));
-        assertEquals(2, testUserRecords.getRecords().size());
+    void testRemoveRecordNotExist() {
+        try {
+            assertFalse(testUserRecords.removeRecord("unknown"));
+            assertEquals(2, testUserRecords.getRecords().size());
+            fail("RecordNotFoundException expected");
+        } catch (CannotAccessDataException e) {
+            fail();
+        } catch (RecordNotFoundException e) {
+            assertEquals(e.getId(), "unknown");
+        }
+    }
 
-        assertTrue(testUserRecords.removeRecord(testFootprintRecord.getId()));
-        assertEquals(1, testUserRecords.getRecords().size());
+    @Test
+    void testRemoveRecord() {
+        try {
+            assertTrue(testUserRecords.removeRecord(testFootprintRecord.getId()));
+            assertEquals(1, testUserRecords.getRecords().size());
+        } catch (CannotAccessDataException | RecordNotFoundException e) {
+            fail();
+        }
     }
 
     @Test

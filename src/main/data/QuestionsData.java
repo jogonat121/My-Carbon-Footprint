@@ -1,10 +1,10 @@
 package data;
 
+import data.exceptions.CannotAccessDataException;
 import model.Question;
 import model.QuestionBank;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -47,7 +47,7 @@ public class QuestionsData {
 
     // MODIFIES: this
     // EFFECTS: constructs and loads the questions from the file at the given path to the appropriate question banks
-    public List<QuestionBank> loadQuestions(String pathName) {
+    public List<QuestionBank> loadQuestions(String pathName) throws CannotAccessDataException {
         List<QuestionBank> questionBanks = new ArrayList<>();
         questionBanks.add(foodQuestionBank);
         questionBanks.add(travelQuestionBank);
@@ -69,8 +69,8 @@ public class QuestionsData {
                 }
             }
             questions.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            throw new CannotAccessDataException("Cannot read data from file");
         }
 
         return questionBanks;
@@ -78,7 +78,7 @@ public class QuestionsData {
 
     // MODIFIES: this
     // EFFECTS: constructs and loads the questions from the file to the appropriate question banks
-    public List<QuestionBank> loadQuestions() {
+    public List<QuestionBank> loadQuestions() throws CannotAccessDataException {
         return loadQuestions(path);
     }
 }

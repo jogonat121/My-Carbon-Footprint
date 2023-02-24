@@ -1,11 +1,11 @@
 package data;
 
 import com.opencsv.*;
-import com.opencsv.exceptions.CsvException;
+import data.exceptions.CannotAccessDataException;
+import data.exceptions.RecordNotFoundException;
 
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class UserRecords {
     private static final char DELIMITER = ';';
 
     // EFFECTS: constructs and initializes a user records with path to CSV data file and empty records
-    public UserRecords() {
+    public UserRecords() throws CannotAccessDataException {
         path = PATH;
         records = new ArrayList<>();
 
@@ -36,30 +36,29 @@ public class UserRecords {
 
     // MODIFIES: this
     // EFFECTS: loads the records from the data file at the path
-    public void init(String pathName) {
+    public void init(String pathName) throws CannotAccessDataException {
         try {
             CSVParser parser = new CSVParserBuilder().withSeparator(DELIMITER).build();
             CSVReader reader = new CSVReaderBuilder(new FileReader(pathName)).withCSVParser(parser).build();
             records = reader.readAll();
             reader.close();
-        } catch (IOException | CsvException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            throw new CannotAccessDataException("Cannot read the CSV file specified");
         }
     }
 
     // MODIFIES: this
     // EFFECTS: loads the records from the data file
-    private void init() {
+    private void init() throws CannotAccessDataException {
         init(path);
     }
 
     // MODIFIES: this
     // EFFECTS: removes the record of the given ID and returns true, false if record not found
-    public boolean removeRecord(String id) {
+    public boolean removeRecord(String id) throws CannotAccessDataException, RecordNotFoundException {
         int recordIndex = getRecordIndex(id);
         if (recordIndex == 0) {
-            System.out.println("Record with given ID not found!");
-            return false;
+            throw new RecordNotFoundException(id);
         }
         records.remove(recordIndex);
 
@@ -71,9 +70,8 @@ public class UserRecords {
 
             writer.writeAll(records);
             writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
+        } catch (Exception e) {
+            throw new CannotAccessDataException("Cannot write data to file");
         }
 
         return true;

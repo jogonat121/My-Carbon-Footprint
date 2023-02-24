@@ -1,10 +1,10 @@
 package data;
 
 import com.opencsv.CSVWriter;
+import data.exceptions.CannotAccessDataException;
 import model.Footprint;
 
 import java.io.FileWriter;
-import java.io.IOException;
 
 // Represents footprint record with a unique id, and food, travel and misc. footprints
 public class FootprintRecord {
@@ -45,7 +45,7 @@ public class FootprintRecord {
 
     // MODIFIES: data
     // EFFECTS: writes the footprint record to the data at the path
-    public boolean saveData(String pathName, boolean append) {
+    public boolean saveData(String pathName, boolean append) throws CannotAccessDataException {
         try {
             CSVWriter writer = new CSVWriter(new FileWriter(pathName, append), ';',
                     CSVWriter.NO_QUOTE_CHARACTER,
@@ -65,9 +65,8 @@ public class FootprintRecord {
             writer.writeNext(record);
 
             writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
+        } catch (Exception e) {
+            throw new CannotAccessDataException("Cannot write data to file");
         }
 
         return true;
@@ -75,7 +74,7 @@ public class FootprintRecord {
 
     // MODIFIES: data
     // EFFECTS: writes the footprint record to the data
-    public boolean saveData() {
+    public boolean saveData() throws CannotAccessDataException {
         return saveData(PATH, true);
     }
 

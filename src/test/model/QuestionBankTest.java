@@ -1,5 +1,7 @@
 package model;
 
+import model.exceptions.EmptyQuestionBankException;
+import model.exceptions.InvalidNumberOfAnswersException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,6 +21,7 @@ public class QuestionBankTest {
     @Test
     void testQuestionBank() {
         assertTrue(testQuestionBank.isEmpty());
+        assertTrue(testQuestionBank.getQuestionBank().isEmpty());
         assertEquals("Test", testQuestionBank.getCategory());
     }
 
@@ -37,11 +40,27 @@ public class QuestionBankTest {
     }
 
     @Test
+    void testGetNextQuestionEmpty() {
+        Question testQuestion = new Question("Test ?", 0, "Test");
+        try {
+            assertEquals(testQuestion, testQuestionBank.getNextQuestion());
+            fail("EmptyQuestionBankException expected");
+        } catch (EmptyQuestionBankException e) {
+            // expected
+        }
+    }
+
+    @Test
     void testGetNextQuestion() {
         Question testQuestion = new Question("Test ?", 0, "Test");
         testQuestionBank.addQuestion(testQuestion);
         assertEquals(1, testQuestionBank.length());
-        assertEquals(testQuestion, testQuestionBank.getNextQuestion());
+
+        try {
+            assertEquals(testQuestion, testQuestionBank.getNextQuestion());
+        } catch (EmptyQuestionBankException e) {
+            fail();
+        }
         assertEquals(0, testQuestionBank.length());
     }
 
@@ -69,35 +88,68 @@ public class QuestionBankTest {
     }
 
     @Test
-    void testCalculateFootprintEmpty() {
+    void testCalculateFootprintEmptyQuestionBank() {
         List<Double> testValues = new ArrayList<>();
         testValues.add(1.5);
 
-        assertEquals(0, testQuestionBank.calculateFootprint(testValues).getValue());
-        assertEquals("Test", testQuestionBank.calculateFootprint(testValues).getCategory());
+        try {
+            assertEquals(0, testQuestionBank.calculateFootprint(testValues).getValue());
+            assertEquals("Test", testQuestionBank.calculateFootprint(testValues).getCategory());
+            fail("EmptyQuestionBank expected");
+        } catch (InvalidNumberOfAnswersException ignored) {
+        } catch (EmptyQuestionBankException e) {
+            // expected
+        }
         assertTrue(testQuestionBank.isEmpty());
     }
 
     @Test
-    void testCalculateFootprintTypical() {
+    void testCalculateFootprintInvalidValues() {
         List<Double> testValues = new ArrayList<>();
+        Question testQuestion = new Question("Test ?", 0, "Test");
+        testQuestionBank.addQuestion(testQuestion);
 
-        Question testQuestion = new Question("Test ?", 10, "Test");
-        testQuestionBank.addQuestion(testQuestion);
-        testValues.add(5.5);
-        assertEquals(55, testQuestionBank.calculateFootprint(testValues).getValue());
-        assertEquals("Test", testQuestionBank.calculateFootprint(testValues).getCategory());
-        assertTrue(testQuestionBank.isEmpty());
+        try {
+            assertEquals(0, testQuestionBank.calculateFootprint(testValues).getValue());
+            assertEquals("Test", testQuestionBank.calculateFootprint(testValues).getCategory());
+            assertTrue(testQuestionBank.isEmpty());
+            fail("InvalidNumberOfAnswersException expected");
+        } catch (InvalidNumberOfAnswersException e) {
+            // expected
+        } catch (EmptyQuestionBankException e) {
+            fail();
+        }
+    }
 
-        Question testQuestion2 = new Question("Test2 ?", 2, "Test");
-        testQuestionBank.addQuestion(testQuestion);
-        testQuestionBank.addQuestion(testQuestion2);
-        testQuestionBank.addQuestion(testQuestion);
-        testValues.add(0.0);
-        testValues.add(0.55);
-        assertEquals(60.5, testQuestionBank.calculateFootprint(testValues).getValue());
-        assertEquals("Test", testQuestionBank.calculateFootprint(testValues).getCategory());
-        assertTrue(testQuestionBank.isEmpty());
+    @Test
+    void testCalculateFootprintTypical() {
+        List<Double> testValues;
+        Footprint resultFootprint;
+        try {
+            Question testQuestion = new Question("Test ?", 10, "Test");
+            testQuestionBank.addQuestion(testQuestion);
+            testValues = new ArrayList<>();
+            testValues.add(5.5);
+            resultFootprint = testQuestionBank.calculateFootprint(testValues);
+            assertEquals(55, resultFootprint.getValue());
+            assertEquals("Test", resultFootprint.getCategory());
+            assertTrue(testQuestionBank.isEmpty());
+
+            Question testQuestion2 = new Question("Test2 ?", 2, "Test");
+            testQuestionBank.addQuestion(testQuestion);
+            testQuestionBank.addQuestion(testQuestion2);
+            testQuestionBank.addQuestion(testQuestion);
+            testValues = new ArrayList<>();
+            testValues.add(0.0);
+            testValues.add(0.55);
+            testValues.add(10.0);
+            resultFootprint = testQuestionBank.calculateFootprint(testValues);
+            assertEquals(101.1, resultFootprint.getValue());
+            assertEquals("Test", resultFootprint.getCategory());
+            assertTrue(testQuestionBank.isEmpty());
+        } catch (InvalidNumberOfAnswersException | EmptyQuestionBankException e) {
+            fail();
+        }
 
     }
 

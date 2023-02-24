@@ -1,14 +1,12 @@
 package data;
 
-import com.opencsv.CSVWriter;
+import data.exceptions.CannotAccessDataException;
 import model.Footprint;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.FileWriter;
-import java.io.IOException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class FootprintRecordTest {
     private FootprintRecord testFootprintRecord;
@@ -40,17 +38,20 @@ public class FootprintRecordTest {
 
     @Test
     void testSaveData() {
-        testFootprintRecord.saveData(PATH_TO_SAMPLE_RECORDS, false);
+        try {
+            testFootprintRecord.saveData(PATH_TO_SAMPLE_RECORDS, false);
+            UserRecords userRecords = new UserRecords();
+            userRecords.init(PATH_TO_SAMPLE_RECORDS);
+            String[] record = userRecords.getRecords().get(1);
 
-        UserRecords userRecords = new UserRecords();
-        userRecords.init(PATH_TO_SAMPLE_RECORDS);
-        String[] record = userRecords.getRecords().get(1);
-
-        assertEquals(testFootprintRecord.getId(), record[0]);
-        assertEquals(testFootprintFood.getValue(), Double.parseDouble(record[1]));
-        assertEquals(testFootprintTravel.getValue(), Double.parseDouble(record[2]));
-        assertEquals(testFootprintMisc.getValue(), Double.parseDouble(record[3]));
-        assertEquals(testFootprintRecord.getTotalValue(), Double.parseDouble(record[4]));
+            assertEquals(testFootprintRecord.getId(), record[0]);
+            assertEquals(testFootprintFood.getValue(), Double.parseDouble(record[1]));
+            assertEquals(testFootprintTravel.getValue(), Double.parseDouble(record[2]));
+            assertEquals(testFootprintMisc.getValue(), Double.parseDouble(record[3]));
+            assertEquals(testFootprintRecord.getTotalValue(), Double.parseDouble(record[4]));
+        } catch (CannotAccessDataException e) {
+            fail();
+        }
     }
 
     @Test
