@@ -1,0 +1,5 @@
+questions; unitValue; category
+test Food?; 1; Food
+test Travel?; 2; Travel
+test Misc.?; 3; Unknown
+test Travel 2?; 5.5; Travel

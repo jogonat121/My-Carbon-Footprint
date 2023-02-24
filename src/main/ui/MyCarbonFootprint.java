@@ -1,21 +1,21 @@
 package ui;
 
+import data.FootprintRecord;
+import data.QuestionsData;
+import data.UserRecords;
 import model.Footprint;
 import model.Question;
 import model.QuestionBank;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.UUID;
 
 public class MyCarbonFootprint {
     private Scanner input;
-    private QuestionBank travelQuestionBank;
-    private QuestionBank foodQuestionBank;
-    private QuestionBank miscQuestionBank;
-    private static final String UNITS = " metric tonnes CO2";
+    private static final String UNITS = " metric tonnes CO2 a year";
+    private List<QuestionBank> questionBanks;
     
     public MyCarbonFootprint() {
         runApp();
@@ -43,63 +43,58 @@ public class MyCarbonFootprint {
 
     private void init() {
         input = new Scanner(System.in);
-        foodQuestionBank = new QuestionBank("Food");
-        travelQuestionBank = new QuestionBank("Travel");
-        miscQuestionBank = new QuestionBank("Misc.");
+        QuestionsData questionsData = new QuestionsData();
+        questionBanks = questionsData.loadQuestions();
 
-        try {
-            Scanner questions = new Scanner(new File("./data/questions.csv"));
-            questions.nextLine();
-            while (questions.hasNext())  {
-                String[] attributes = questions.nextLine().split("; ");
-                Question question = new Question(attributes[0], Double.parseDouble(attributes[1]), attributes[2]);
-
-                if (question.getCategory().equals("Food")) {
-                    foodQuestionBank.addQuestion(question);
-                } else if (question.getCategory().equals("Travel")) {
-                    travelQuestionBank.addQuestion(question);
-                } else {
-                    miscQuestionBank.addQuestion(question);
-                }
-            }
-            questions.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found!");
-        }
     }
 
     private void displayMenu() {
         System.out.println("\nSelect from:");
         System.out.println("\tc -> calculate my footprint");
+        System.out.println("\ta -> check average footprint");
+        System.out.println("\td -> delete my record");
         System.out.println("\tq -> quit");
     }
 
     private void selectOption(String option) {
         if (option.equals("c")) {
-            calculateFootprintMenu();
+            init();
+            calculateFootprintMenu(questionBanks);
+        } else if (option.equals("d")) {
+            deleteRecord();
+        } else if (option.equals("a")) {
+            checkAverages();
         } else {
             System.out.println("Invalid option.");
         }
     }
 
-    private void calculateFootprintMenu() {
-        List<Double> foodValues = askQuestions(foodQuestionBank);
-        List<Double> travelValues = askQuestions(travelQuestionBank);
-        List<Double> miscValues = askQuestions(miscQuestionBank);
+    private void calculateFootprintMenu(List<QuestionBank> questionBanks) {
+        List<Double> foodValues = askQuestions(questionBanks.get(0));
+        List<Double> travelValues = askQuestions(questionBanks.get(1));
+        List<Double> miscValues = askQuestions(questionBanks.get(2));
 
-        Footprint travelFootprint = travelQuestionBank.calculateFootprint(travelValues);
-        Footprint foodFootprint = foodQuestionBank.calculateFootprint(foodValues);
-        Footprint miscFootprint = miscQuestionBank.calculateFootprint(miscValues);
+        Footprint foodFootprint = questionBanks.get(0).calculateFootprint(foodValues);
+        Footprint travelFootprint = questionBanks.get(1).calculateFootprint(travelValues);
+        Footprint miscFootprint = questionBanks.get(2).calculateFootprint(miscValues);
 
         double travelFootprintValue = travelFootprint.getValue();
         double foodFootprintValue = foodFootprint.getValue();
         double miscFootprintValue = miscFootprint.getValue();
         double totalFootprintValue = travelFootprintValue + foodFootprintValue + miscFootprintValue;
+        double totalRounded = Math.round((totalFootprintValue * 1000) / 1000.0);
 
         System.out.println("Your Travel Footprint is: " + travelFootprintValue + UNITS);
         System.out.println("Your Food Footprint is: " + foodFootprintValue + UNITS);
         System.out.println("Your Misc. Footprint is: " + miscFootprintValue + UNITS);
-        System.out.println("Your Total Footprint is: " + totalFootprintValue + UNITS);
+        System.out.println("Your Total Footprint is: " + totalRounded + UNITS);
+
+        checkAverages();
+
+        System.out.println("\nDo you want to contribute your footprint record to our data? (Enter y for yes)");
+        if (input.next().equalsIgnoreCase("y")) {
+            saveRecord(foodFootprint, travelFootprint, miscFootprint);
+        }
     }
 
     private List<Double> askQuestions(QuestionBank qb) {
@@ -116,5 +111,31 @@ public class MyCarbonFootprint {
         }
 
         return usrValues;
+    }
+
+    private void saveRecord(Footprint food, Footprint travel, Footprint misc) {
+        String uniqueID = UUID.randomUUID().toString();
+        FootprintRecord footprintRecord = new FootprintRecord(uniqueID, food, travel, misc);
+        if (footprintRecord.saveData()) {
+            System.out.println("Successfully recorded!");
+            System.out.println("Please remember the unique ID for your record which is " + uniqueID);
+        }
+
+    }
+
+    private void deleteRecord() {
+        System.out.println("Enter unique ID of the record to be deleted");
+        UserRecords userRecords = new UserRecords();
+        userRecords.removeRecord(input.next());
+    }
+
+    private void checkAverages() {
+        UserRecords userRecords = new UserRecords();
+        List<Double> averages = userRecords.getAverages();
+
+        System.out.println("\nThe Average Travel Footprint is: " + averages.get(0) + UNITS);
+        System.out.println("The Average Food Footprint is: " + averages.get(1) + UNITS);
+        System.out.println("The Average Misc. Footprint is: " + averages.get(2) + UNITS);
+        System.out.println("The Average Total Footprint is: " + averages.get(3) + UNITS);
     }
 }

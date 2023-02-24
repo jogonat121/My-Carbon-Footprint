@@ -22,6 +22,12 @@ public class Footprint {
     }
 
     // MODIFIES: this
+    // EFFECTS: sets the value of the footprint to the given value
+    public void setValue(double value) {
+        this.value = value;
+    }
+
+    // MODIFIES: this
     // EFFECTS: adds the value of the footprint by the given value
     public void addValue(double value) {
         this.value += value;
