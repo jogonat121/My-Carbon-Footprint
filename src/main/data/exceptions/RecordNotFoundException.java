@@ -8,6 +8,7 @@ public class RecordNotFoundException extends Exception {
         this.id = id;
     }
 
+    // EFFECTS: getter
     public String getId() {
         return id;
     }

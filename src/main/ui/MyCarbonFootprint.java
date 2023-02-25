@@ -8,13 +8,16 @@ import ui.menu.DeleteRecordMenu;
 
 import java.util.Scanner;
 
+// Represents the UI
 public class MyCarbonFootprint {
     public static final String UNITS = " metric tonnes CO2 a year";
 
+    // EFFECTS: constructs the UI and runs the app
     public MyCarbonFootprint() {
         runApp();
     }
 
+    // EFFECTS: Initializes and displays the main options
     private void runApp() {
         boolean quit = false;
         String option;
@@ -34,6 +37,7 @@ public class MyCarbonFootprint {
         System.out.println("Thank you for using My Carbon Footprint :)\nHave a nice day, bye for now!");
     }
 
+    // EFFECTS: displays the options (or features/functionality)
     private void displayMenu() {
         System.out.println("\nSelect from:");
         System.out.println("\tc -> calculate my footprint");
@@ -42,16 +46,22 @@ public class MyCarbonFootprint {
         System.out.println("\tq -> quit");
     }
 
+    // EFFECTS: selects and runs the appropriate menu
     private void selectOption(String option) {
         try {
-            if (option.equals("c")) {
-                new CalculateFootprintMenu();
-            } else if (option.equals("d")) {
-                new DeleteRecordMenu();
-            } else if (option.equals("a")) {
-                new AveragesMenu();
-            } else {
-                System.out.println("Invalid option.");
+            switch (option) {
+                case "c":
+                    new CalculateFootprintMenu();
+                    break;
+                case "d":
+                    new DeleteRecordMenu();
+                    break;
+                case "a":
+                    new AveragesMenu();
+                    break;
+                default:
+                    System.out.println("Invalid option specified\nPlease enter a valid option");
+                    break;
             }
         } catch (CannotAccessDataException e) {
             System.out.println(e.getMessage());

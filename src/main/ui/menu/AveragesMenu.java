@@ -7,13 +7,16 @@ import java.util.List;
 
 import static ui.MyCarbonFootprint.UNITS;
 
+// Represents a menu for averages
 public class AveragesMenu extends Menu {
 
+    // EFFECTS: constructs a menu with averages name
     public AveragesMenu() throws CannotAccessDataException {
         super("Averages");
         runMenu();
     }
 
+    // EFFECTS: computes and displays the average of each variable in user records
     private void runMenu() throws CannotAccessDataException {
         UserRecords userRecords;
         userRecords = new UserRecords();
