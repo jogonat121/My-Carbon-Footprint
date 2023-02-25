@@ -30,12 +30,22 @@ public class UserRecordsTest {
             testFootprintTravel.setValue(2);
             testFootprintMisc.setValue(3);
 
-            testFootprintRecord.saveData(PATH_TO_SAMPLE_RECORDS, false);
+            testFootprintRecord.saveData(PATH_TO_SAMPLE_RECORDS, false, false);
 
             testUserRecords = new UserRecords();
-            testUserRecords.init(PATH_TO_SAMPLE_RECORDS);
+            testUserRecords.init(PATH_TO_SAMPLE_RECORDS, false);
         } catch (CannotAccessDataException e) {
             fail();
+        }
+    }
+
+    @Test
+    void testUserRecordsException() {
+        try {
+            testUserRecords.init(PATH_TO_SAMPLE_RECORDS, true);
+            fail("CannotAccessDataException expected");
+        } catch (CannotAccessDataException e) {
+            // expected
         }
     }
 
@@ -51,9 +61,21 @@ public class UserRecordsTest {
     }
 
     @Test
+    void testRemoveRecordException() {
+        try {
+            testUserRecords.removeRecord("unknown", true);
+            fail("CannotAccessDataException expected");
+        } catch (CannotAccessDataException e) {
+            // expected
+        } catch (RecordNotFoundException e) {
+            fail("CannotAccessDataException expected");
+        }
+    }
+
+    @Test
     void testRemoveRecordNotExist() {
         try {
-            assertFalse(testUserRecords.removeRecord("unknown"));
+            assertFalse(testUserRecords.removeRecord("unknown", false));
             assertEquals(2, testUserRecords.getRecords().size());
             fail("RecordNotFoundException expected");
         } catch (CannotAccessDataException e) {
@@ -64,9 +86,9 @@ public class UserRecordsTest {
     }
 
     @Test
-    void testRemoveRecord() {
+    void testRemoveRecordTypical() {
         try {
-            assertTrue(testUserRecords.removeRecord(testFootprintRecord.getId()));
+            assertTrue(testUserRecords.removeRecord(testFootprintRecord.getId(), false));
             assertEquals(1, testUserRecords.getRecords().size());
         } catch (CannotAccessDataException | RecordNotFoundException e) {
             fail();

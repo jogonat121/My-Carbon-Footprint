@@ -6,6 +6,7 @@ import data.exceptions.RecordNotFoundException;
 
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,8 +37,11 @@ public class UserRecords {
 
     // MODIFIES: this
     // EFFECTS: loads the records from the data file at the path
-    public void init(String pathName) throws CannotAccessDataException {
+    public void init(String pathName, boolean testException) throws CannotAccessDataException {
         try {
+            if (testException) {
+                throw new IOException();
+            }
             CSVParser parser = new CSVParserBuilder().withSeparator(DELIMITER).build();
             CSVReader reader = new CSVReaderBuilder(new FileReader(pathName)).withCSVParser(parser).build();
             records = reader.readAll();
@@ -49,20 +53,24 @@ public class UserRecords {
 
     // MODIFIES: this
     // EFFECTS: loads the records from the data file
-    private void init() throws CannotAccessDataException {
-        init(path);
+    void init() throws CannotAccessDataException {
+        init(path, false);
     }
 
     // MODIFIES: this
     // EFFECTS: removes the record of the given ID and returns true, false if record not found
-    public boolean removeRecord(String id) throws CannotAccessDataException, RecordNotFoundException {
-        int recordIndex = getRecordIndex(id);
-        if (recordIndex == 0) {
-            throw new RecordNotFoundException(id);
-        }
-        records.remove(recordIndex);
-
+    public boolean removeRecord(String id, boolean testException)
+            throws CannotAccessDataException, RecordNotFoundException {
         try {
+            if (testException) {
+                throw new IOException();
+            }
+            int recordIndex = getRecordIndex(id);
+            if (recordIndex == 0) {
+                throw new RecordNotFoundException(id);
+            }
+            records.remove(recordIndex);
+
             CSVWriter writer = new CSVWriter(new FileWriter(path), ';',
                     CSVWriter.NO_QUOTE_CHARACTER,
                     CSVWriter.DEFAULT_ESCAPE_CHARACTER,
@@ -70,7 +78,7 @@ public class UserRecords {
 
             writer.writeAll(records);
             writer.close();
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new CannotAccessDataException("Cannot write data to file");
         }
 

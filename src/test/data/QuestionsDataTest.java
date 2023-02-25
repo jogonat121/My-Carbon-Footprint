@@ -9,8 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class QuestionsDataTest {
     private QuestionsData testQuestionsData;
@@ -55,6 +54,23 @@ public class QuestionsDataTest {
             fail();
         } catch (EmptyQuestionBankException e) {
             // expected
+        }
+    }
+
+    @Test
+    void testLoadQuestionsDefaultParams() {
+        List<QuestionBank> questionBanks;
+        try {
+            questionBanks = testQuestionsData.loadQuestions();
+            QuestionBank foodQuestionBank = questionBanks.get(0);
+            QuestionBank travelQuestionBank = questionBanks.get(1);
+            QuestionBank miscQuestionBank = questionBanks.get(2);
+
+            assertNotEquals(0, foodQuestionBank.length());
+            assertNotEquals(0, travelQuestionBank.length());
+            assertNotEquals(0, miscQuestionBank.length());
+        } catch (CannotAccessDataException e) {
+            fail();
         }
     }
 

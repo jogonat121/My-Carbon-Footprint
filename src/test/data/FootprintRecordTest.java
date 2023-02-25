@@ -1,12 +1,12 @@
 package data;
 
 import data.exceptions.CannotAccessDataException;
+import data.exceptions.RecordNotFoundException;
 import model.Footprint;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class FootprintRecordTest {
     private FootprintRecord testFootprintRecord;
@@ -37,11 +37,42 @@ public class FootprintRecordTest {
     }
 
     @Test
+    void testSaveDataException() {
+        try {
+            testFootprintRecord.saveData(PATH_TO_SAMPLE_RECORDS, false, true);
+            fail("CannotAccessDataException expected");
+        } catch (CannotAccessDataException e) {
+            // expected
+        }
+    }
+
+    @Test
+    void testSaveDataDefaultParams() {
+        try {
+            testFootprintRecord.saveData();
+            UserRecords userRecords = new UserRecords();
+            userRecords.init();
+            String[] record = userRecords.getRecords().get(1);
+
+            assertEquals(testFootprintRecord.getId(), record[0]);
+            assertEquals(testFootprintFood.getValue(), Double.parseDouble(record[1]));
+            assertEquals(testFootprintTravel.getValue(), Double.parseDouble(record[2]));
+            assertEquals(testFootprintMisc.getValue(), Double.parseDouble(record[3]));
+            assertEquals(testFootprintRecord.getTotalValue(), Double.parseDouble(record[4]));
+            assertTrue(testFootprintRecord.saveData());
+
+            userRecords.removeRecord(testFootprintRecord.getId(), false);
+        } catch (CannotAccessDataException | RecordNotFoundException e) {
+            fail();
+        }
+    }
+
+    @Test
     void testSaveData() {
         try {
-            testFootprintRecord.saveData(PATH_TO_SAMPLE_RECORDS, false);
+            testFootprintRecord.saveData(PATH_TO_SAMPLE_RECORDS, false, false);
             UserRecords userRecords = new UserRecords();
-            userRecords.init(PATH_TO_SAMPLE_RECORDS);
+            userRecords.init(PATH_TO_SAMPLE_RECORDS, false);
             String[] record = userRecords.getRecords().get(1);
 
             assertEquals(testFootprintRecord.getId(), record[0]);
