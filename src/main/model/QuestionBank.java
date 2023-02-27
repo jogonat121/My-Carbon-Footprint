@@ -52,7 +52,6 @@ public class QuestionBank {
         this.questionBank.add(q);
     }
 
-    // REQUIRES: questionBank.size == usrValues.size()
     // MODIFIES: this
     // EFFECTS: calculates the footprint with the corresponding user values for each question
     //  and remove those questions

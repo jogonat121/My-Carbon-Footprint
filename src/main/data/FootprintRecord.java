@@ -15,7 +15,7 @@ public class FootprintRecord {
     private final Footprint travelFootprint;
     private final Footprint miscFootprint;
 
-    // REQUIRES: id should be unique (no other FootprintData should have the same id)
+    // REQUIRES: id should be unique (no other FootprintRecord should have the same id)
     // EFFECTS: constructs a footprint record with the given id and footprints
     public FootprintRecord(String id, Footprint food, Footprint travel, Footprint misc) {
         this.id = id;

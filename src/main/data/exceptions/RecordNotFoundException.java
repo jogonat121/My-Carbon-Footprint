@@ -4,7 +4,7 @@ public class RecordNotFoundException extends Exception {
     private final String id;
 
     public RecordNotFoundException(String id) {
-        super("Record with " + id + " not found");
+        super("Record with ID: " + id + " not found");
         this.id = id;
     }
 

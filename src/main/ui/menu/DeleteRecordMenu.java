@@ -27,6 +27,7 @@ public class DeleteRecordMenu extends Menu {
         try {
             if (!recordID.equalsIgnoreCase("q")) {
                 userRecords.removeRecord(recordID, false);
+                System.out.println("Record with ID: " + recordID + " deleted.");
             }
         } catch (RecordNotFoundException e) {
             System.out.println(e.getMessage());

@@ -10,7 +10,7 @@ this includes reducing our carbon footprint.
 
 A carbon footprint is the total amount of greenhouse gas emissions that are generated as a result of our actions. These
 greenhouse gases are the reason that Sun's heat is trapped in the atmosphere causing warmer temperatures to sustain
-life. However, we have been producing high carbon footprintRecord lately and this trend contributes to a predicted
+life. However, we have been producing high carbon footprint lately and this trend contributes to a predicted
 2&deg;C increase in global temperature.
 
 ### How do I know how much carbon footprint am I generating?
@@ -27,7 +27,7 @@ Footprint**.
 
 This application will be used by environmental activists to aid them in spreading awareness towards the consequences our
 actions have on this planet, and even by curious fellow human beings. I believe this problem involves everyone so
-everyone should be aware of their carbon footprintRecord and become a part of solution by reporting their data, which can
+everyone should be aware of their carbon footprint and become a part of solution by reporting their data, which can
 help us better research and suggest possible ways to avoid global warming. <br />
 As more and more people consent to providing their data to this app, we will be in a position to better estimate the
 carbon footprint we are generating and help the users reduce their carbon footprint by narrowing their attention to a
