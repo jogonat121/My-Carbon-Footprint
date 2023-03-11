@@ -29,7 +29,7 @@ public class JsonReader {
     // throws CannotAccessDataException if error occurs while reading data
     public FootprintRecord read() throws CannotAccessDataException {
         try {
-            String jsonData = Files.readString(Paths.get(path));
+            String jsonData = new String(Files.readAllBytes(Paths.get(path)));
             JSONObject json = new JSONObject(jsonData);
             return parseFootprintRecord(json);
         } catch (Exception e) {
