@@ -7,7 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.nio.file.Files;
-import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +29,7 @@ public class JsonReader {
     // throws CannotAccessDataException if error occurs while reading data
     public FootprintRecord read() throws CannotAccessDataException {
         try {
-            String jsonData = Files.readString(Path.of(path));
+            String jsonData = Files.readString(Paths.get(path));
             JSONObject json = new JSONObject(jsonData);
             return parseFootprintRecord(json);
         } catch (Exception e) {
