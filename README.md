@@ -36,8 +36,12 @@ generating greenhouse emissions.
 
 ### User Stories
 - As a user, I want to be able to calculate my carbon footprint.
-- As a user, I want to be able to contribute my carbon footprint data to a data consisting of other people's footprints.
+- As a user, I want to be able to contribute my carbon footprint data to a data consisting of other people's footprints
+  (if I so choose).
+- As a user, I want to be able to manually edit my footprint values (if I so choose).
+- As a user, I want to be able to save my footprint data to file (if I so choose).
 - As a user, I want to be able to find out the average footprint of other people, so I can compare my consumption of
 resources to theirs.
 - As a user, I want to be able to find out the carbon footprint I generate in different areas or categories.
+- As a user, I want to be able to load my footprint data from file  (if I so choose).
 - As a user, I want to be able to remove my contributions from the data of user footprints whenever I want.

@@ -29,5 +29,6 @@
     </orderEntry>
     <orderEntry type="library" name="opencsv-5.7.1" level="project" />
     <orderEntry type="library" name="commons-lang3-3.12.0" level="project" />
+    <orderEntry type="library" name="json-20210307" level="project" />
   </component>
 </module>

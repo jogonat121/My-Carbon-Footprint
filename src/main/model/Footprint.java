@@ -1,7 +1,10 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Represents a footprint having a value (CO2 emissions) and category
-public class Footprint {
+public class Footprint implements Writable {
     private double value;
     private final String category;
 
@@ -31,5 +34,14 @@ public class Footprint {
     // EFFECTS: adds the value of the footprint by the given value
     public void addValue(double value) {
         this.value += value;
+    }
+
+    // EFFECTS: returns this as a JSON object
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("category", category);
+        json.put("value", value);
+        return json;
     }
 }

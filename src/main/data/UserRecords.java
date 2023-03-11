@@ -17,7 +17,8 @@ public class UserRecords {
     private List<String[]> records;
     private static final char DELIMITER = ';';
 
-    // EFFECTS: constructs and initializes a user records with path to CSV data file and empty records
+    // EFFECTS: constructs and initializes a user records with path to CSV data file and empty records;
+    // throws CannotAccessDataException if error occurs while reading data
     public UserRecords() throws CannotAccessDataException {
         path = PATH;
         records = new ArrayList<>();
@@ -36,7 +37,8 @@ public class UserRecords {
     }
 
     // MODIFIES: this
-    // EFFECTS: loads the records from the data file at the path
+    // EFFECTS: loads the records from the data file at the path;
+    // throws CannotAccessDataException if error occurs while reading data
     public void init(String pathName, boolean testException) throws CannotAccessDataException {
         try {
             if (testException) {
@@ -52,13 +54,16 @@ public class UserRecords {
     }
 
     // MODIFIES: this
-    // EFFECTS: loads the records from the data file
+    // EFFECTS: loads the records from the data file;
+    // throws CannotAccessDataException if error occurs while reading data
     void init() throws CannotAccessDataException {
         init(path, false);
     }
 
     // MODIFIES: this
-    // EFFECTS: removes the record of the given ID and returns true, false if record not found
+    // EFFECTS: removes the record of the given ID and returns true, false if record not found;
+    // throws CannotAccessDataException if error occurs while reading data;
+    // throws RecordNotFoundException if cannot find record with given id;
     public boolean removeRecord(String id, boolean testException)
             throws CannotAccessDataException, RecordNotFoundException {
         try {

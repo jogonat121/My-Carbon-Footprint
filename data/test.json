@@ -1,0 +1,17 @@
+{
+    "id": "test",
+    "footprints": [
+        {
+            "category": "Food",
+            "value": 11.5
+        },
+        {
+            "category": "Travel",
+            "value": 15
+        },
+        {
+            "category": "Misc.",
+            "value": 0.25
+        }
+    ]
+}

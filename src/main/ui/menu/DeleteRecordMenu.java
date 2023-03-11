@@ -10,14 +10,16 @@ import java.util.Scanner;
 public class DeleteRecordMenu extends Menu {
     private final Scanner input;
 
-    // EFFECTS: constructs a menu with delete record name
+    // EFFECTS: constructs a menu with delete record name;
+    // throws CannotAccessDataException if error occurs while accessing data
     public DeleteRecordMenu() throws CannotAccessDataException {
         super("Delete Record");
         input = new Scanner(System.in);
         runMenu();
     }
 
-    // EFFECTS: deletes the record of the given id if found
+    // EFFECTS: deletes the record of the given id if found;
+    // throws CannotAccessDataException if error occurs while deleting record from data
     private void runMenu() throws CannotAccessDataException {
         System.out.println("Enter unique ID of the record to be deleted (Enter 'q' to go back)");
 

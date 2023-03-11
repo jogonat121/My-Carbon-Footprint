@@ -46,7 +46,8 @@ public class QuestionsData {
     }
 
     // MODIFIES: this
-    // EFFECTS: constructs and loads the questions from the file at the given path to the appropriate question banks
+    // EFFECTS: constructs and loads the questions from the file at the given path to the appropriate question banks;
+    // throws CannotAccessDataException if error occurs while reading data
     public List<QuestionBank> loadQuestions(String pathName) throws CannotAccessDataException {
         List<QuestionBank> questionBanks = new ArrayList<>();
         questionBanks.add(foodQuestionBank);
@@ -77,7 +78,8 @@ public class QuestionsData {
     }
 
     // MODIFIES: this
-    // EFFECTS: constructs and loads the questions from the file to the appropriate question banks
+    // EFFECTS: constructs and loads the questions from the file to the appropriate question banks;
+    // throws CannotAccessDataException if error occurs while reading data
     public List<QuestionBank> loadQuestions() throws CannotAccessDataException {
         return loadQuestions(path);
     }

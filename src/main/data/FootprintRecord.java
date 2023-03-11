@@ -3,12 +3,16 @@ package data;
 import com.opencsv.CSVWriter;
 import data.exceptions.CannotAccessDataException;
 import model.Footprint;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.JsonWriter;
+import persistence.Writable;
 
 import java.io.FileWriter;
 import java.io.IOException;
 
 // Represents footprint record with a unique id, and food, travel and misc. footprints
-public class FootprintRecord {
+public class FootprintRecord implements Writable {
     private final String id;
     private static final String PATH = "./data/userRecords.csv";
     private final Footprint foodFootprint;
@@ -45,7 +49,8 @@ public class FootprintRecord {
     }
 
     // MODIFIES: data
-    // EFFECTS: writes the footprint record to the data at the path
+    // EFFECTS: writes the footprint record to the data at the path;
+    // throws CannotAccessDataException if error occurs while writing data
     public boolean saveData(String pathName, boolean append, boolean testException) throws CannotAccessDataException {
         try {
             if (testException) {
@@ -77,7 +82,8 @@ public class FootprintRecord {
     }
 
     // MODIFIES: data
-    // EFFECTS: writes the footprint record to the data
+    // EFFECTS: writes the footprint record to the data;
+    // throws CannotAccessDataException if error occurs while writing data
     public boolean saveData() throws CannotAccessDataException {
         return saveData(PATH, true, false);
     }
@@ -86,5 +92,30 @@ public class FootprintRecord {
     public double getTotalValue() {
         double totalValue = foodFootprint.getValue() + travelFootprint.getValue() + miscFootprint.getValue();
         return Math.round(totalValue * 1000) / 1000.0;
+    }
+
+    // EFFECTS: saves this as JSON file at path with given filename;
+    // throws CannotAccessDataException if error occurs while writing file
+    public void exportFile(String fileName) throws CannotAccessDataException {
+        JsonWriter writer = new JsonWriter(fileName);
+        writer.write(this);
+    }
+
+    // EFFECTS: returns this as a JSON object
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("id", id);
+        json.put("footprints", footprintsToJson());
+        return json;
+    }
+
+    // EFFECTS: returns a JSON array containing JSON object each of food, travel and misc. footprints
+    private JSONArray footprintsToJson() {
+        JSONArray jsonArray = new JSONArray();
+        jsonArray.put(foodFootprint.toJson());
+        jsonArray.put(travelFootprint.toJson());
+        jsonArray.put(miscFootprint.toJson());
+        return jsonArray;
     }
 }

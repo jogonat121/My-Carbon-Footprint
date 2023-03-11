@@ -5,6 +5,7 @@ import model.exceptions.EmptyQuestionBankException;
 import ui.menu.AveragesMenu;
 import ui.menu.CalculateFootprintMenu;
 import ui.menu.DeleteRecordMenu;
+import ui.menu.LoadFootprintMenu;
 
 import java.util.Scanner;
 
@@ -42,6 +43,7 @@ public class MyCarbonFootprint {
         System.out.println("\nSelect from:");
         System.out.println("\tc -> calculate my footprint");
         System.out.println("\ta -> check average footprint");
+        System.out.println("\tl -> load footprint from file");
         System.out.println("\td -> delete my record");
         System.out.println("\tq -> quit");
     }
@@ -59,16 +61,15 @@ public class MyCarbonFootprint {
                 case "a":
                     new AveragesMenu();
                     break;
+                case "l":
+                    new LoadFootprintMenu();
+                    break;
                 default:
                     System.out.println("Invalid option specified\nPlease enter a valid option");
                     break;
             }
-        } catch (CannotAccessDataException e) {
+        } catch (CannotAccessDataException | EmptyQuestionBankException e) {
             System.out.println(e.getMessage());
-            runApp();
-        } catch (EmptyQuestionBankException e) {
-            System.out.println(e.getMessage());
-            System.out.print("Sorry no questions available");
             runApp();
         }
     }
