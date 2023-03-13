@@ -87,6 +87,7 @@ public class CalculateFootprintMenu extends Menu {
         System.out.println("Your Total Footprint is: " + totalFootprintValue + UNITS);
     }
 
+    // REQUIRES: input values are of Double type
     // EFFECTS: asks the questions in the given question bank
     private List<Double> askQuestions(QuestionBank qb) {
         List<Double> usrValues = new ArrayList<>();
