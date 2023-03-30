@@ -1,41 +1,107 @@
 package ui.menu;
 
 import data.FootprintRecord;
+import data.exceptions.CannotAccessDataException;
 import model.Footprint;
 
-import java.util.Scanner;
-
-import static ui.MyCarbonFootprint.UNITS;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 // Represents a menu for editing record
-public class EditFootprintMenu extends Menu {
-    private final Scanner input;
+public class EditFootprintMenu extends JFrame implements ActionListener {
+    private final Footprint foodFootprint;
+    private final Footprint travelFootprint;
+    private final Footprint miscFootprint;
+    private final JFrame parentFrame;
+    private JTextField foodTextField;
+    private JTextField travelTextField;
+    private JTextField miscTextField;
 
-    // EFFECTS: constructs a menu with edit footprint name
-    public EditFootprintMenu(FootprintRecord fr) {
+    // EFFECTS: constructs and runs a JFrame with title edit footprint with JPanels added
+    public EditFootprintMenu(FootprintRecord fr, JFrame parentFrame) {
         super("Edit Footprint");
-        input = new Scanner(System.in);
-        runMenu(fr);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setSize(parentFrame.getWidth(), parentFrame.getHeight());
+        setLocationRelativeTo(parentFrame);
+
+        this.parentFrame = parentFrame;
+        foodFootprint = fr.getFoodFootprint();
+        travelFootprint = fr.getTravelFootprint();
+        miscFootprint = fr.getMiscFootprint();
+
+        add(getEditPanel(), BorderLayout.CENTER);
+        add(getFooterPanel(), BorderLayout.SOUTH);
+
+        setVisible(true);
+
     }
 
-    // MODIFIES: footprintRecord
-    // EFFECTS: edits the footprint record and displays the new footprint values
-    public void runMenu(FootprintRecord footprintRecord) {
-        Footprint foodFootprint = footprintRecord.getFoodFootprint();
-        Footprint travelFootprint = footprintRecord.getTravelFootprint();
-        Footprint miscFootprint = footprintRecord.getMiscFootprint();
+    // EFFECTS: constructs and returns a JPanel for the footer
+    private JPanel getFooterPanel() {
+        JPanel footerPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JButton backButton = createButton("Back to previous menu", "back");
+        footerPanel.add(backButton);
+        return footerPanel;
+    }
 
-        System.out.println("Enter new value of Food footprint: ");
-        foodFootprint.setValue(Double.parseDouble(input.next()));
-        System.out.println("Enter new value of Travel footprint: ");
-        travelFootprint.setValue(Double.parseDouble(input.next()));
-        System.out.println("Enter new value of Misc. footprint: ");
-        miscFootprint.setValue(Double.parseDouble(input.next()));
-        System.out.println("Successfully edited! ");
+    // MODIFIES: this
+    // EFFECTS: constructs and returns a JPanel for editing footprint
+    private JPanel getEditPanel() {
+        JPanel editPanel = new JPanel(new GridLayout(4, 2));
+        JLabel foodLabel = new JLabel("Food Footprint:");
+        foodTextField = new JTextField(String.valueOf(foodFootprint.getValue()));
+        JLabel travelLabel = new JLabel("Travel Footprint:");
+        travelTextField = new JTextField(String.valueOf(travelFootprint.getValue()));
+        JLabel miscLabel = new JLabel("Misc. Footprint:");
+        miscTextField = new JTextField(String.valueOf(miscFootprint.getValue()));
+        JButton submitButton = createButton("Submit", "submit");
+        editPanel.add(foodLabel);
+        editPanel.add(foodTextField);
+        editPanel.add(travelLabel);
+        editPanel.add(travelTextField);
+        editPanel.add(miscLabel);
+        editPanel.add(miscTextField);
+        editPanel.add(submitButton);
+        return editPanel;
+    }
 
-        System.out.println("Your Food Footprint is: " + foodFootprint.getValue() + UNITS);
-        System.out.println("Your Travel Footprint is: " + travelFootprint.getValue() + UNITS);
-        System.out.println("Your Misc. Footprint is: " + miscFootprint.getValue() + UNITS);
-        System.out.println("Your Total Footprint is: " + footprintRecord.getTotalValue() + UNITS);
+    // EFFECTS: constructs and returns a JButton with given text and command
+    private JButton createButton(String buttonText, String actionCommand) {
+        JButton button = new JButton(buttonText);
+        button.setActionCommand(actionCommand);
+        button.addActionListener(this);
+        return button;
+    }
+
+    // EFFECTS: listens to buttons clicked and performs corresponding actions
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        try {
+            if ("submit".equals(e.getActionCommand())) {
+                editFootprints();
+            } else {
+                setVisible(false);
+            }
+        } catch (ClassCastException ex) {
+            // ignore (expected sometimes)
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    // REQUIRES: foodTextField.getText(), travelTextField.getText(), miscTextField.getText()
+    //   to be able to parse as Double
+    // MODIFIES: this
+    // EFFECTS: updates the footprints with new values entered by the user;
+    // throws CannotAccessDataException if error occurs while accessing data
+    private void editFootprints() throws CannotAccessDataException {
+        foodFootprint.setValue(Double.parseDouble(foodTextField.getText()));
+        travelFootprint.setValue(Double.parseDouble(travelTextField.getText()));
+        miscFootprint.setValue(Double.parseDouble(miscTextField.getText()));
+        setVisible(false);
+        ((CalculateFootprintMenu) parentFrame).refresh();
+        ((LoadFootprintMenu) parentFrame).refresh();
     }
 }
