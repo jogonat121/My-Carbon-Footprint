@@ -31,6 +31,7 @@ public class MyCarbonFootprint extends JFrame implements ActionListener {
         setVisible(true);
     }
 
+    // EFFECTS: creates and returns the main menu JPanel
     private JPanel mainPanel() {
         JPanel mainPanel = new JPanel(new GridLayout(2, 1));
         mainPanel.add(new ImageManager(new ImageIcon("./data/icons/logo.png").getImage()));
@@ -38,6 +39,7 @@ public class MyCarbonFootprint extends JFrame implements ActionListener {
         return mainPanel;
     }
 
+    // EFFECTS: creates and returns the main menu buttons JPanel
     private JPanel getButtonsPanel() {
         JPanel buttonsPanel = new JPanel(new GridLayout(5, 1));
         JButton calculateButton = createButton("Calculate My Footprint", "calcMenu");
@@ -53,6 +55,7 @@ public class MyCarbonFootprint extends JFrame implements ActionListener {
         return buttonsPanel;
     }
 
+    // EFFECTS: creates and returns the JButton with given text and command
     private JButton createButton(String buttonText, String actionCommand) {
         JButton button = new JButton(buttonText);
         button.setActionCommand(actionCommand);
@@ -60,6 +63,7 @@ public class MyCarbonFootprint extends JFrame implements ActionListener {
         return button;
     }
 
+    // EFFECTS: listens to buttons clicked and performs corresponding actions
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
