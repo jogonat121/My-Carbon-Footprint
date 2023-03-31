@@ -41,8 +41,21 @@ generating greenhouse emissions.
   (if I so choose).
 - As a user, I want to be able to manually edit my footprint values (if I so choose).
 - As a user, I want to be able to save my footprint data to file (if I so choose).
-- As a user, I want to be able to find out the average footprint of other people, so I can compare my consumption of
-resources to theirs.
+- As a user, I want to be able to find out the average footprint of other people.
+- As a user, I want to be able to compare my consumption of resources visually to the average.
 - As a user, I want to be able to find out the carbon footprint I generate in different areas or categories.
 - As a user, I want to be able to load my footprint data from file  (if I so choose).
 - As a user, I want to be able to remove my contributions from the data of user footprints whenever I want.
+
+## Instructions for Grader
+- You can generate the first required action related to adding Xs to a Y by
+Caclulate My Footprint [Each Footprint (X) is added to FootprintRecord (Y)]
+- You can generate the second required action related to adding Xs to a Y by
+Calculate My Footprint -> Contribute [Your FootprintRecord (X) to Contributions (Y)].
+- You can locate my visual component on the main menu which is the logo.
+- You can locate my second visual component which is a comparison graph
+(needs to save some sample values to contributions first to get average data.) by Calculate My Footprint -> Compare
+OR Load Footprint -> Compare.
+- You can save your footprint record by clicking the save button in Calculate OR Load.
+- You can manually edit the footprint values by clicking the edit button in Calculate OR Load.
+- You can reload your footprint record by Load My Footprint.
