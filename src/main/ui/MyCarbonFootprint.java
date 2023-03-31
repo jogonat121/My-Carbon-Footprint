@@ -89,19 +89,20 @@ public class MyCarbonFootprint extends JFrame implements ActionListener {
     // EFFECTS: asks record id and deletes the record of the entered id if found;
     // throws CannotAccessDataException if error occurs while deleting record from data
     private void deleteRecord() throws CannotAccessDataException {
-        String recordID = JOptionPane.showInputDialog(this,
-                "Enter unique ID of the record to be deleted:");
+        String recordID = (String) JOptionPane.showInputDialog(this,
+                "Enter unique ID of the record to be deleted:", "Delete Record", JOptionPane.PLAIN_MESSAGE,
+                new ImageIcon("./data/icons/deleted.png"), null, null);
 
         UserRecords userRecords = new UserRecords();
         if (recordID != null && !recordID.isEmpty()) {
             try {
                 userRecords.removeRecord(recordID, false);
                 JOptionPane.showMessageDialog(this,
-                        "Successfully deleted record with ID: " + recordID,
-                        "Record deleted", JOptionPane.PLAIN_MESSAGE);
+                        "Successfully deleted record with ID: " + recordID, "Record deleted",
+                        JOptionPane.PLAIN_MESSAGE, new ImageIcon("./data/icons/deleted.png"));
             } catch (RecordNotFoundException e) {
                 JOptionPane.showMessageDialog(this, e.getMessage(), "Record not found!",
-                        JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.WARNING_MESSAGE, new ImageIcon("./data/icons/notFound.png"));
             }
         }
     }

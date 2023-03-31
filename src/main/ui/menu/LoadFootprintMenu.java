@@ -130,8 +130,8 @@ public class LoadFootprintMenu extends JFrame implements ActionListener {
             try {
                 footprintRecord.exportFile(fileName);
                 JOptionPane.showMessageDialog(this,
-                        "Successfully saved to ./data/" + fileName + ".json",
-                        "Footprint Saved", JOptionPane.PLAIN_MESSAGE);
+                        "Successfully saved to ./data/" + fileName + ".json", "Footprint Saved",
+                        JOptionPane.PLAIN_MESSAGE, new ImageIcon("./data/icons/saved.png"));
             } catch (CannotAccessDataException e) {
                 JOptionPane.showMessageDialog(this, "Cannot write data to file",
                         "Cannot Access Data Exception", JOptionPane.WARNING_MESSAGE);
@@ -191,7 +191,8 @@ public class LoadFootprintMenu extends JFrame implements ActionListener {
                     setVisible(false);
             }
         } catch (CannotAccessDataException ex) {
-            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Cannot read file!",
+                    JOptionPane.WARNING_MESSAGE, new ImageIcon("./data/icons/notFound.png"));
         }
     }
 

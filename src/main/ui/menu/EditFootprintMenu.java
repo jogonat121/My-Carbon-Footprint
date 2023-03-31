@@ -85,7 +85,7 @@ public class EditFootprintMenu extends JFrame implements ActionListener {
                 setVisible(false);
             }
         } catch (ClassCastException ex) {
-            // ignore (expected sometimes)
+            ((LoadFootprintMenu) parentFrame).refresh();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -102,6 +102,5 @@ public class EditFootprintMenu extends JFrame implements ActionListener {
         miscFootprint.setValue(Double.parseDouble(miscTextField.getText()));
         setVisible(false);
         ((CalculateFootprintMenu) parentFrame).refresh();
-        ((LoadFootprintMenu) parentFrame).refresh();
     }
 }

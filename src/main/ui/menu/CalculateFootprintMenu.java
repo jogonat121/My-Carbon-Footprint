@@ -126,8 +126,7 @@ public class CalculateFootprintMenu extends JFrame implements ActionListener {
             questionBanks = questionsData.loadQuestions();
             loadQuestions();
         } catch (InvalidNumberOfAnswersException e) {
-            JOptionPane.showMessageDialog(this, e.getMessage(),
-                    "Error: InvalidNumberOfAnswersException", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
             init();
         }
     }
@@ -262,9 +261,10 @@ public class CalculateFootprintMenu extends JFrame implements ActionListener {
             throws InvalidNumberOfAnswersException, CannotAccessDataException, EmptyQuestionBankException {
         if (questions.isEmpty()) {
             processAnswers();
+        } else {
+            questionLabel.setText(questions.removeFirst().getQuery());
+            answerField.setText("");
         }
-        questionLabel.setText(questions.removeFirst().getQuery());
-        answerField.setText("");
     }
 
     // MODIFIES: data
@@ -276,21 +276,23 @@ public class CalculateFootprintMenu extends JFrame implements ActionListener {
                     + "\nPlease remember the unique ID for your record which is " + footprintRecord.getId());
             message.setEditable(false);
             JOptionPane.showMessageDialog(this, message, "Thank you for your contribution",
-                    JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.PLAIN_MESSAGE, new ImageIcon("./data/icons/contribution.png"));
         }
     }
 
     // MODIFIES: data
     // EFFECTS: exports the footprint record as a JSON file
     private void exportRecord(FootprintRecord footprintRecord) {
-        String fileName = JOptionPane.showInputDialog(this,
-                "Enter name of the file to save as:");
+        String fileName = (String) JOptionPane.showInputDialog(this,
+                "Enter name of the file to save as:", "Save Record",
+                JOptionPane.PLAIN_MESSAGE, new ImageIcon("./data/icons/saved.png"),
+                null, null);
         if (fileName != null && !fileName.isEmpty()) {
             try {
                 footprintRecord.exportFile(fileName);
                 JOptionPane.showMessageDialog(this,
-                        "Successfully saved to ./data/" + fileName + ".json",
-                        "Footprint Saved", JOptionPane.PLAIN_MESSAGE);
+                        "Successfully saved to ./data/" + fileName + ".json", "Footprint Saved",
+                        JOptionPane.PLAIN_MESSAGE, new ImageIcon("./data/icons/saved.png"));
             } catch (CannotAccessDataException e) {
                 JOptionPane.showMessageDialog(this, "Cannot write data to file",
                         "Cannot Access Data Exception", JOptionPane.WARNING_MESSAGE);
