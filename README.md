@@ -52,6 +52,8 @@ generating greenhouse emissions.
 Caclulate My Footprint [Each Footprint (X) is added to FootprintRecord (Y)]
 - You can generate the second required action related to adding Xs to a Y by
 Calculate My Footprint -> Contribute [Your FootprintRecord (X) to Contributions (Y)].
+- You can also delete your record by Delete My Contribution on main menu.
+- You can also use the compare buttons to get comparison graph related to Xs and Y by Calculate OR Load from main screen.
 - You can locate my visual component on the main menu which is the logo.
 - You can locate my second visual component which is a comparison graph
 (needs to save some sample values to contributions first to get average data.) by Calculate My Footprint -> Compare
