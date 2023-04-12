@@ -49,7 +49,7 @@ generating greenhouse emissions.
 
 ## Instructions for Grader
 - You can generate the first required action related to adding Xs to a Y by
-Caclulate My Footprint [Each Footprint (X) is added to FootprintRecord (Y)]
+Calculate My Footprint [Each Footprint (X) is added to FootprintRecord (Y)]
 - You can generate the second required action related to adding Xs to a Y by
 Calculate My Footprint -> Contribute [Your FootprintRecord (X) to Contributions (Y)].
 - You can also delete your record by Delete My Contribution on main menu.
@@ -61,3 +61,51 @@ OR Load Footprint -> Compare.
 - You can save your footprint record by clicking the save button in Calculate OR Load.
 - You can manually edit the footprint values by clicking the edit button in Calculate OR Load.
 - You can reload your footprint record by Load My Footprint.
+
+## Phase 4: Task 2
+```
+Wed Apr 12 14:16:33 PDT 2023
+Loaded questions from file to question bank
+Wed Apr 12 14:16:39 PDT 2023
+Calculated user footprint
+Wed Apr 12 14:16:39 PDT 2023
+Calculated user footprint
+Wed Apr 12 14:16:39 PDT 2023
+Calculated user footprint
+Wed Apr 12 14:16:39 PDT 2023
+Loaded user records from the contributions file
+Wed Apr 12 14:16:39 PDT 2023
+Calculated average footprints from contributions file
+Wed Apr 12 14:17:02 PDT 2023
+Loaded user records from the contributions file
+Wed Apr 12 14:17:02 PDT 2023
+Calculated average footprints from contributions file
+Wed Apr 12 14:17:08 PDT 2023
+Exported footprint record to phase4
+Wed Apr 12 14:17:11 PDT 2023
+Added footprint record to contributions file
+Wed Apr 12 14:17:28 PDT 2023
+Loaded user records from the contributions file
+Wed Apr 12 14:17:28 PDT 2023
+Calculated average footprints from contributions file
+Wed Apr 12 14:17:39 PDT 2023
+Exported footprint record to phase4v2
+Wed Apr 12 14:17:44 PDT 2023
+Loaded user records from the contributions file
+Wed Apr 12 14:17:44 PDT 2023
+Calculated average footprints from contributions file
+Wed Apr 12 14:18:03 PDT 2023
+Exported footprint record to phase4
+Wed Apr 12 14:18:06 PDT 2023
+Loaded user records from the contributions file
+Wed Apr 12 14:18:06 PDT 2023
+Calculated average footprints from contributions file
+Wed Apr 12 14:18:11 PDT 2023
+Loaded user records from the contributions file
+Wed Apr 12 14:18:11 PDT 2023
+Deleted contribution record with ID: 268a067d-ca7a-4aba-bd3d-bed79c2ff820
+Wed Apr 12 14:18:17 PDT 2023
+Loaded user records from the contributions file
+Wed Apr 12 14:18:17 PDT 2023
+Calculated average footprints from contributions file
+```

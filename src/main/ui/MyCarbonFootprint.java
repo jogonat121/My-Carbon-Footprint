@@ -3,6 +3,8 @@ package ui;
 import data.UserRecords;
 import data.exceptions.CannotAccessDataException;
 import data.exceptions.RecordNotFoundException;
+import model.Event;
+import model.EventLog;
 import model.exceptions.EmptyQuestionBankException;
 import ui.menu.AveragesMenu;
 import ui.menu.CalculateFootprintMenu;
@@ -81,13 +83,20 @@ public class MyCarbonFootprint extends JFrame implements ActionListener {
                     deleteRecord();
                     break;
                 default:
-                    dispose();
-                    System.exit(0);
+                    quit();
                     break;
             }
         } catch (CannotAccessDataException | EmptyQuestionBankException ex) {
             System.out.println(ex.getMessage());
         }
+    }
+
+    private void quit() {
+        dispose();
+        for (Event next : EventLog.getInstance()) {
+            System.out.println(next.toString());
+        }
+        System.exit(0);
     }
 
     // EFFECTS: asks record id and deletes the record of the entered id if found;
