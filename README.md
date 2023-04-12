@@ -64,48 +64,50 @@ OR Load Footprint -> Compare.
 
 ## Phase 4: Task 2
 ```
-Wed Apr 12 14:16:33 PDT 2023
+Wed Apr 12 14:25:01 PDT 2023
 Loaded questions from file to question bank
-Wed Apr 12 14:16:39 PDT 2023
+Wed Apr 12 14:25:06 PDT 2023
 Calculated user footprint
-Wed Apr 12 14:16:39 PDT 2023
+Wed Apr 12 14:25:06 PDT 2023
 Calculated user footprint
-Wed Apr 12 14:16:39 PDT 2023
+Wed Apr 12 14:25:06 PDT 2023
 Calculated user footprint
-Wed Apr 12 14:16:39 PDT 2023
+Wed Apr 12 14:25:06 PDT 2023
 Loaded user records from the contributions file
-Wed Apr 12 14:16:39 PDT 2023
+Wed Apr 12 14:25:06 PDT 2023
 Calculated average footprints from contributions file
-Wed Apr 12 14:17:02 PDT 2023
-Loaded user records from the contributions file
-Wed Apr 12 14:17:02 PDT 2023
-Calculated average footprints from contributions file
-Wed Apr 12 14:17:08 PDT 2023
-Exported footprint record to phase4
-Wed Apr 12 14:17:11 PDT 2023
+Wed Apr 12 14:25:11 PDT 2023
+Exported footprint record to phase4.json
+Wed Apr 12 14:25:13 PDT 2023
 Added footprint record to contributions file
-Wed Apr 12 14:17:28 PDT 2023
+Wed Apr 12 14:25:29 PDT 2023
 Loaded user records from the contributions file
-Wed Apr 12 14:17:28 PDT 2023
+Wed Apr 12 14:25:29 PDT 2023
 Calculated average footprints from contributions file
-Wed Apr 12 14:17:39 PDT 2023
-Exported footprint record to phase4v2
-Wed Apr 12 14:17:44 PDT 2023
+Wed Apr 12 14:25:38 PDT 2023
 Loaded user records from the contributions file
-Wed Apr 12 14:17:44 PDT 2023
+Wed Apr 12 14:25:38 PDT 2023
 Calculated average footprints from contributions file
-Wed Apr 12 14:18:03 PDT 2023
-Exported footprint record to phase4
-Wed Apr 12 14:18:06 PDT 2023
+Wed Apr 12 14:25:45 PDT 2023
+Exported footprint record to phase4v2.json
+Wed Apr 12 14:25:46 PDT 2023
+Added footprint record to contributions file
+Wed Apr 12 14:25:51 PDT 2023
 Loaded user records from the contributions file
-Wed Apr 12 14:18:06 PDT 2023
+Wed Apr 12 14:25:51 PDT 2023
 Calculated average footprints from contributions file
-Wed Apr 12 14:18:11 PDT 2023
+Wed Apr 12 14:26:07 PDT 2023
+Exported footprint record to phase4.json
+Wed Apr 12 14:26:08 PDT 2023
 Loaded user records from the contributions file
-Wed Apr 12 14:18:11 PDT 2023
-Deleted contribution record with ID: 268a067d-ca7a-4aba-bd3d-bed79c2ff820
-Wed Apr 12 14:18:17 PDT 2023
+Wed Apr 12 14:26:08 PDT 2023
+Calculated average footprints from contributions file
+Wed Apr 12 14:26:14 PDT 2023
 Loaded user records from the contributions file
-Wed Apr 12 14:18:17 PDT 2023
+Wed Apr 12 14:26:14 PDT 2023
+Deleted contribution record with ID: a291a473-3856-4bdd-aed3-05e361397929
+Wed Apr 12 14:26:20 PDT 2023
+Loaded user records from the contributions file
+Wed Apr 12 14:26:20 PDT 2023
 Calculated average footprints from contributions file
 ```

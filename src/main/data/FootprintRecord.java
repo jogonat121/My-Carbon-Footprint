@@ -103,7 +103,7 @@ public class FootprintRecord implements Writable {
     public void exportFile(String fileName) throws CannotAccessDataException {
         JsonWriter writer = new JsonWriter(fileName);
         writer.write(this);
-        EventLog.getInstance().logEvent(new Event("Exported footprint record to " + fileName));
+        EventLog.getInstance().logEvent(new Event("Exported footprint record to " + fileName + ".json"));
     }
 
     // EFFECTS: returns this as a JSON object
