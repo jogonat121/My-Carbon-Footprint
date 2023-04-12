@@ -1,6 +1,8 @@
 package data;
 
 import data.exceptions.CannotAccessDataException;
+import model.Event;
+import model.EventLog;
 import model.Question;
 import model.QuestionBank;
 
@@ -81,6 +83,8 @@ public class QuestionsData {
     // EFFECTS: constructs and loads the questions from the file to the appropriate question banks;
     // throws CannotAccessDataException if error occurs while reading data
     public List<QuestionBank> loadQuestions() throws CannotAccessDataException {
-        return loadQuestions(path);
+        List<QuestionBank> result = loadQuestions(path);
+        EventLog.getInstance().logEvent(new Event("Loaded questions from file to question bank"));
+        return result;
     }
 }

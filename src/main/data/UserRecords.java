@@ -3,6 +3,8 @@ package data;
 import com.opencsv.*;
 import data.exceptions.CannotAccessDataException;
 import data.exceptions.RecordNotFoundException;
+import model.Event;
+import model.EventLog;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -58,6 +60,7 @@ public class UserRecords {
     // throws CannotAccessDataException if error occurs while reading data
     void init() throws CannotAccessDataException {
         init(path, false);
+        EventLog.getInstance().logEvent(new Event("Loaded user records from the contributions file"));
     }
 
     // MODIFIES: this
@@ -83,6 +86,7 @@ public class UserRecords {
 
             writer.writeAll(records);
             writer.close();
+            EventLog.getInstance().logEvent(new Event("Deleted contribution record with ID: " + id));
         } catch (IOException e) {
             throw new CannotAccessDataException("Cannot write data to file");
         }
@@ -126,6 +130,7 @@ public class UserRecords {
         averages.add(Math.round((miscFootprintValue / recordsNum) * 1000) / 1000.0);
         averages.add(Math.round((totalFootprintValue / recordsNum) * 1000) / 1000.0);
 
+        EventLog.getInstance().logEvent(new Event("Calculated average footprints from contributions file"));
         return averages;
     }
 }

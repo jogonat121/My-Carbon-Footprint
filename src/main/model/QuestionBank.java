@@ -73,6 +73,7 @@ public class QuestionBank {
             valIndex++;
         }
 
+        EventLog.getInstance().logEvent(new Event("Calculated user footprint"));
         return footprint;
     }
 }

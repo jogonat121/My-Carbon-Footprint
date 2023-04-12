@@ -2,6 +2,8 @@ package data;
 
 import com.opencsv.CSVWriter;
 import data.exceptions.CannotAccessDataException;
+import model.Event;
+import model.EventLog;
 import model.Footprint;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -85,7 +87,9 @@ public class FootprintRecord implements Writable {
     // EFFECTS: writes the footprint record to the data;
     // throws CannotAccessDataException if error occurs while writing data
     public boolean saveData() throws CannotAccessDataException {
-        return saveData(PATH, true, false);
+        boolean result = saveData(PATH, true, false);
+        EventLog.getInstance().logEvent(new Event("Added footprint record to contributions file"));
+        return result;
     }
 
     // EFFECTS: returns the total footprint value
@@ -99,6 +103,7 @@ public class FootprintRecord implements Writable {
     public void exportFile(String fileName) throws CannotAccessDataException {
         JsonWriter writer = new JsonWriter(fileName);
         writer.write(this);
+        EventLog.getInstance().logEvent(new Event("Exported footprint record to a JSON file"));
     }
 
     // EFFECTS: returns this as a JSON object
