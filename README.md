@@ -111,3 +111,21 @@ Loaded user records from the contributions file
 Wed Apr 12 14:26:20 PDT 2023
 Calculated average footprints from contributions file
 ```
+
+## Phase 4: Task 3
+Looking at the 
+[UML class diagram](https://github.students.cs.ubc.ca/CPSC210-2022W-T2/project_u9q7n/blob/main/UML_Design_Diagram.png),
+I would refactor the four menu classes in the `menu` package in the `ui` package. If I had more time, I would create an
+abstract class as these classes has a lot of common behavior and attributes for menus, which can then be inherited by
+the individual menu classes. This would avoid duplication in the code and also making it easier to add new menu types in
+the future. <br/>
+For a much better design and given I had more time, I would refactor some bits of the code which is similar across
+multiple classes and does the same thing. I would create an object that would be responsible for carrying out tasks
+related to that, so I can segregate that method with the other methods which are related to each other in the class.
+I did this for utilities like `Chart Manager` in the `ui` package, however, it would help to do it for classes in the
+`data` package, especially saving data.
+Another possible refactoring that I could do is to use the <b>Dependency Inversion Principle</b> to reduce the coupling between
+classes. This principle suggests that high-level modules should not depend on low-level modules, but rather both should
+depend on abstractions. By using abstractions, I can change the implementation of low-level modules without affecting 
+high-level modules, making the code more flexible and maintainable. <br/>
+
