@@ -123,9 +123,9 @@ For a much better design and given I had more time, I would refactor some bits o
 multiple classes and does the same thing. I would create an object that would be responsible for carrying out tasks
 related to that, so I can segregate that method with the other methods which are related to each other in the class.
 I did this for utilities like `Chart Manager` in the `ui` package, however, it would help to do it for classes in the
-`data` package, especially saving data.
+`data` package, especially saving data. <br/>
 Another possible refactoring that I could do is to use the <b>Dependency Inversion Principle</b> to reduce the coupling between
 classes. This principle suggests that high-level modules should not depend on low-level modules, but rather both should
 depend on abstractions. By using abstractions, I can change the implementation of low-level modules without affecting 
-high-level modules, making the code more flexible and maintainable. <br/>
+high-level modules, making the code more flexible and maintainable.
 
