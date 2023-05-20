@@ -1,7 +1,5 @@
 package model;
 
-// Sourced from UBC CPSC 210 AlarmSystem
-
 import java.util.Calendar;
 import java.util.Date;
 

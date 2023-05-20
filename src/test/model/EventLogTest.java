@@ -1,7 +1,5 @@
 package model;
 
-// Sourced from UBC CPSC 210 AlarmSystem
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -34,7 +32,7 @@ public class EventLogTest {
 
     @Test
     public void testLogEvent() {
-        List<Event> l = new ArrayList<Event>();
+        List<Event> l = new ArrayList<>();
 
         EventLog el = EventLog.getInstance();
         for (Event next : el) {

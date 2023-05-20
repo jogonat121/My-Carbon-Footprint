@@ -1,7 +1,5 @@
 package model;
 
-// Sourced from UBC CPSC 210 AlarmSystem
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

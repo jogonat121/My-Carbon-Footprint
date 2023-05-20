@@ -1,7 +1,5 @@
 package model;
 
-// Sourced from UBC CPSC 210 AlarmSystem
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
