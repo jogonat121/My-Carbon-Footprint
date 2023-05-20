@@ -114,7 +114,7 @@ Calculated average footprints from contributions file
 
 ## Phase 4: Task 3
 Looking at the 
-[UML class diagram](https://github.students.cs.ubc.ca/CPSC210-2022W-T2/project_u9q7n/blob/main/UML_Design_Diagram.png),
+[UML class diagram](https://github.com/omairqazi29/My-Carbon-Footprint/blob/main/UML_Design_Diagram.png),
 I would refactor the four menu classes in the `menu` package in the `ui` package. If I had more time, I would create an
 abstract class as these classes has a lot of common behavior and attributes for menus, which can then be inherited by
 the individual menu classes. This would avoid duplication in the code while making it easier to add new menu types in
