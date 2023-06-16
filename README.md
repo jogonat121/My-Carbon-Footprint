@@ -47,22 +47,7 @@ generating greenhouse emissions.
 - As a user, I want to be able to load my footprint data from file  (if I so choose).
 - As a user, I want to be able to remove my contributions from the data of user footprints whenever I want.
 
-## Instructions for Grader
-- You can generate the first required action related to adding Xs to a Y by
-Calculate My Footprint [Each Footprint (X) is added to FootprintRecord (Y)]
-- You can generate the second required action related to adding Xs to a Y by
-Calculate My Footprint -> Contribute [Your FootprintRecord (X) to Contributions (Y)].
-- You can also delete your record by Delete My Contribution on main menu.
-- You can also use the compare buttons to get comparison graph related to Xs and Y by Calculate OR Load from main screen.
-- You can locate my visual component on the main menu which is the logo.
-- You can locate my second visual component which is a comparison graph
-(needs to save some sample values to contributions first to get average data.) by Calculate My Footprint -> Compare
-OR Load Footprint -> Compare.
-- You can save your footprint record by clicking the save button in Calculate OR Load.
-- You can manually edit the footprint values by clicking the edit button in Calculate OR Load.
-- You can reload your footprint record by Load My Footprint.
-
-## Phase 4: Task 2
+## Sample Log
 ```
 Wed Apr 12 14:25:01 PDT 2023
 Loaded questions from file to question bank
@@ -112,7 +97,7 @@ Wed Apr 12 14:26:20 PDT 2023
 Calculated average footprints from contributions file
 ```
 
-## Phase 4: Task 3
+## UML Class Diagram
 Looking at the 
 [UML class diagram](https://github.com/omairqazi29/My-Carbon-Footprint/blob/main/UML_Design_Diagram.png),
 I would refactor the four menu classes in the `menu` package in the `ui` package. If I had more time, I would create an
