@@ -44,8 +44,6 @@ public class QuestionsDataTest {
         try {
             questionBanks = testQuestionsData.loadQuestions(SAMPLE_QUESTIONS_PATH);
             QuestionBank foodQuestionBank = questionBanks.get(0);
-            QuestionBank travelQuestionBank = questionBanks.get(1);
-            QuestionBank miscQuestionBank = questionBanks.get(2);
 
             assertEquals("test Food?", foodQuestionBank.getNextQuestion().getQuery());
             assertEquals("Unknown", foodQuestionBank.getNextQuestion().getCategory());
